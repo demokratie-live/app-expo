@@ -36,7 +36,7 @@ export default {
     version: "1.5.11",
     orientation: "portrait",
     icon: getAppIcon(),
-    userInterfaceStyle: "light",
+    userInterfaceStyle: "automatic",
     newArchEnabled: false,
     splash: {
       image: "./assets/bootsplash_logo.png",
@@ -46,7 +46,7 @@ export default {
       dark: {
         image: "./assets/bootsplash_logo.png",
         resizeMode: "re",
-        backgroundColor: "#4494d3",
+        backgroundColor: "#2882C4",
         imageWidth: 200,
       },
     },

@@ -6,7 +6,7 @@ import SvgShareIos from '../../../components/Icons/ShareIos';
 import SvgShare from '../../../components/Icons/Share';
 import SvgBell from '../../../components/Icons/Bell';
 import SvgBellSlash from '../../../components/Icons/BellSlash';
-import { theme } from '../../../styles/theme';
+import { useTheme } from 'styled-components';
 
 // Pick<Slice, 'percent' | 'large'>
 const VoteIconButtonWrapper = styled.TouchableOpacity<
@@ -64,6 +64,7 @@ const ActionButton: React.FC<Props> = ({
   style = {},
   notify,
 }) => {
+  const theme = useTheme();
   let styleWrapper;
   let Icon;
   const ShareComponent = Platform.OS === 'ios' ? SvgShareIos : SvgShare;
@@ -106,7 +107,7 @@ const ActionButton: React.FC<Props> = ({
         <Text
           style={{
             fontSize: 60,
-            color: theme.oldColors.headerText,
+            color: theme.colors.text.secondary,
             fontWeight: '200',
           }}
         >

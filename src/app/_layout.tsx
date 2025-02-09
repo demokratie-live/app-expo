@@ -1,9 +1,8 @@
-// import "../lib/wdyr";
+//   import "../lib/wdyr";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { client } from "../api/apollo";
 import { ApolloProvider } from "@apollo/client";
-import { ThemeProvider } from "styled-components/native";
-import { theme } from "../styles/theme";
+import { ThemeProvider } from "../api/state/theme";
 import { RecoilRoot } from "recoil";
 import { Stack } from "expo-router";
 import { lightTheme } from "@democracy-deutschland/ui";
@@ -34,7 +33,7 @@ export default function Layout() {
   return (
     <VerificationProvider>
       <RecoilRoot>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider>
           <ApolloProvider client={client}>
             <NotificationsProvider>
               <GestureHandlerRootView style={{ flex: 1 }}>

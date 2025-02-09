@@ -18,11 +18,11 @@ import {
   ChartLegendData,
   WomPartyChartData,
 } from "@democracy-deutschland/ui";
-import { theme } from "../../styles/theme";
 import { Centered } from "../../components/Centered";
 import { NoVotesPlaceholder } from "../../components/NoVotesPlaceholder";
 import { VoteStackParamList } from "../../app/(vote)/_layout";
 import { useLegislaturePeriodStore } from "src/api/state/legislaturePeriod";
+import { useTheme } from "styled-components";
 
 const Wrapper = styled.View`
   flex: 1;
@@ -95,6 +95,7 @@ export const VotingScreen: React.FC<Props> = ({
   procedureId,
   title,
 }) => {
+  const theme = useTheme();
   const { legislaturePeriod } = useLegislaturePeriodStore();
   const parlamentIdentifier = `BT-${legislaturePeriod}` as ParlamentIdentifier;
   const parlament = parlaments[parlamentIdentifier];

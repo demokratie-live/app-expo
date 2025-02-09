@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { Slide } from '../Slide';
+import { SlideProps } from '../Slide';
 
 export enum Screen {
   Waehle = 'Waehle',
@@ -8,7 +7,7 @@ export enum Screen {
   Analysiere = 'Analysiere',
 }
 
-type ScreenData = { [key in Screen]: Slide };
+type ScreenData = { [key in Screen]: SlideProps };
 
 export const slidesData: ScreenData = {
   Waehle: {

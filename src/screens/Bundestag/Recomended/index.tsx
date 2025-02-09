@@ -6,11 +6,12 @@ import { ListLoading } from "../../../components/ListLoading";
 import { useRecommendedProceduresQuery } from "../../../__generated__/graphql";
 import { Segment } from "../List/Components/Segment";
 import { Divider } from "./styled";
-import { theme } from "../../../styles/theme";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "expo-router";
+import { useTheme } from "styled-components";
 
 export const Recommended = () => {
+  const theme = useTheme();
   const router = useRouter();
   const localVotes = useRecoilValue(localVotesState);
   const { data } = useRecommendedProceduresQuery();
@@ -49,61 +50,61 @@ export const Recommended = () => {
               communityChart={
                 item.voted && item.communityVotes
                   ? {
-                      size: 18,
-                      data: [
-                        {
-                          name: "yes",
-                          value: item.communityVotes.yes,
-                          color: item.voted
-                            ? theme.colors.vote.community.yes
-                            : theme.colors.vote.notVoted.yes,
-                          highlight: localSelection === "YES",
-                        },
-                        {
-                          name: "abstination",
-                          value: item.communityVotes.abstination,
-                          color: item.voted
-                            ? theme.colors.vote.community.abstination
-                            : theme.colors.vote.notVoted.abstination,
-                          highlight: localSelection === "ABSTINATION",
-                        },
-                        {
-                          name: "no",
-                          value: item.communityVotes.no,
-                          color: item.voted
-                            ? theme.colors.vote.community.no
-                            : theme.colors.vote.notVoted.no,
-                          highlight: localSelection === "NO",
-                        },
-                      ],
-                    }
+                    size: 18,
+                    data: [
+                      {
+                        name: "yes",
+                        value: item.communityVotes.yes,
+                        color: item.voted
+                          ? theme.colors.vote.community.yes
+                          : theme.colors.vote.notVoted.yes,
+                        highlight: localSelection === "YES",
+                      },
+                      {
+                        name: "abstination",
+                        value: item.communityVotes.abstination,
+                        color: item.voted
+                          ? theme.colors.vote.community.abstination
+                          : theme.colors.vote.notVoted.abstination,
+                        highlight: localSelection === "ABSTINATION",
+                      },
+                      {
+                        name: "no",
+                        value: item.communityVotes.no,
+                        color: item.voted
+                          ? theme.colors.vote.community.no
+                          : theme.colors.vote.notVoted.no,
+                        highlight: localSelection === "NO",
+                      },
+                    ],
+                  }
                   : undefined
               }
               governmentChart={
                 item.voted && item.voteResults
                   ? {
-                      size: 18,
-                      data: [
-                        {
-                          name: "yes",
-                          value: item.voteResults.yes,
-                          color: theme.colors.vote.government.yes,
-                          highlight: true,
-                        },
-                        {
-                          name: "abstination",
-                          value: item.voteResults.abstination,
-                          color: theme.colors.vote.government.abstination,
-                          highlight: true,
-                        },
-                        {
-                          name: "no",
-                          value: item.voteResults.no,
-                          color: theme.colors.vote.government.no,
-                          highlight: true,
-                        },
-                      ],
-                    }
+                    size: 18,
+                    data: [
+                      {
+                        name: "yes",
+                        value: item.voteResults.yes,
+                        color: theme.colors.vote.government.yes,
+                        highlight: true,
+                      },
+                      {
+                        name: "abstination",
+                        value: item.voteResults.abstination,
+                        color: theme.colors.vote.government.abstination,
+                        highlight: true,
+                      },
+                      {
+                        name: "no",
+                        value: item.voteResults.no,
+                        color: theme.colors.vote.government.no,
+                        highlight: true,
+                      },
+                    ],
+                  }
                   : undefined
               }
             />

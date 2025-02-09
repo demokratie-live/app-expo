@@ -6,9 +6,9 @@ import { DeputyListController } from "./DeputyListController";
 import styled from "styled-components/native";
 import { useRecoilValue } from "recoil";
 import { favorizedDeputiesState } from "../../api/state/favorizedDeputies";
-import { theme } from "../../styles/theme";
 import { ParlamentIdentifier } from "../../api/state/parlament";
 import { SidebarParamList } from "../../app/(sidebar)/_layout";
+import { useTheme } from "styled-components";
 
 const Wrapper = styled.View`
   background-color: ${({ theme }) => theme.colors.background.primary};
@@ -36,6 +36,7 @@ export const AbgeordneteScreen: React.FC<Props> = ({
   parlamentIdentifier,
   initialEditMode,
 }) => {
+  const theme = useTheme();
   const route = useRoute<RouteProps>();
   const [editMode, setEditMode] = useState<boolean>(!!initialEditMode);
   const [searchTerm, setSearchTerm] = React.useState("");

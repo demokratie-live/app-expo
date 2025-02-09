@@ -22,13 +22,13 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import WomHeader from "../WahlOMeter/Header";
 import ChartLegend from "../Procedure/components/Charts/ChartLegend";
 import Folding from "../../components/Folding";
-import { theme } from "../../styles/theme";
 import {
   useGetDeputyProceduresQuery,
   useGetDeputyQuery,
   VoteSelection,
 } from "../../__generated__/graphql";
 import { PartyProps } from "@democracy-deutschland/ui/dist/Atoms/PartyLogo/old";
+import { useTheme } from "styled-components";
 
 const MemberImageWrapper = styled.View`
   width: 100%;
@@ -63,6 +63,7 @@ export interface Contacts {
 type Props = RootStackParamList["DeputyProfile/[id]"];
 
 export const DeputyProfilScreen: React.FC<Props> = ({ id }) => {
+  const theme = useTheme();
   const [showProcedures, setShowProcedures] = useState(true);
   const localVotes = useRecoilValue(localVotesState);
   const navigation =
@@ -176,18 +177,18 @@ export const DeputyProfilScreen: React.FC<Props> = ({ id }) => {
   if (contact) {
     contacts = contact.email
       ? [
-          { name: "email", URL: contact.email },
-          ...contact.links.map((link) => ({
-            ...link,
-            username: link.username ? link.username : undefined,
-          })),
-        ]
+        { name: "email", URL: contact.email },
+        ...contact.links.map((link) => ({
+          ...link,
+          username: link.username ? link.username : undefined,
+        })),
+      ]
       : [
-          ...contact.links.map((link) => ({
-            ...link,
-            username: link.username ? link.username : undefined,
-          })),
-        ];
+        ...contact.links.map((link) => ({
+          ...link,
+          username: link.username ? link.username : undefined,
+        })),
+      ];
   }
 
   const procedureCountByDecision = getProcedureCountByDecision(procedures);
@@ -318,10 +319,10 @@ export const DeputyProfilScreen: React.FC<Props> = ({ id }) => {
                       item.decision === "YES"
                         ? theme.colors.vote.government.yes
                         : item.decision === "ABSTINATION"
-                        ? theme.colors.vote.government.abstination
-                        : item.decision === "NO"
-                        ? theme.colors.vote.government.no
-                        : theme.colors.vote.government.notVoted,
+                          ? theme.colors.vote.government.abstination
+                          : item.decision === "NO"
+                            ? theme.colors.vote.government.no
+                            : theme.colors.vote.government.notVoted,
                     highlight: true,
                     name: item.decision,
                     value: 1,
@@ -332,21 +333,21 @@ export const DeputyProfilScreen: React.FC<Props> = ({ id }) => {
               communityChart={
                 decision
                   ? {
-                      data: [
-                        {
-                          color:
-                            decision === "YES"
-                              ? theme.colors.vote.community.yes
-                              : decision === "ABSTINATION"
+                    data: [
+                      {
+                        color:
+                          decision === "YES"
+                            ? theme.colors.vote.community.yes
+                            : decision === "ABSTINATION"
                               ? theme.colors.vote.community.abstination
                               : theme.colors.vote.community.no,
-                          highlight: true,
-                          name: "yes",
-                          value: 1,
-                        },
-                      ],
-                      size: 18,
-                    }
+                        highlight: true,
+                        name: "yes",
+                        value: 1,
+                      },
+                    ],
+                    size: 18,
+                  }
                   : undefined
               }
             />

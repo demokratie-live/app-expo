@@ -6,7 +6,7 @@ import { useWindowDimensions } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { localVotesState } from '../../../../api/state/votesLocal';
 import { DeputyMatchBarFragment } from '../../../../__generated__/graphql';
-import { theme } from '../../../../styles/theme';
+import { useTheme } from 'styled-components';
 
 interface PreparedData {
   label: string;
@@ -26,6 +26,7 @@ export interface MatchesBarProps {
 }
 
 export const MatchesBar: React.FC<MatchesBarProps> = ({ decisions }) => {
+  const theme = useTheme();
   const { width } = useWindowDimensions();
   const localVotes = useRecoilValue(localVotesState);
   const votedProcedures = decisions.map(({ procedure, decision }) => ({

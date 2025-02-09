@@ -90,7 +90,7 @@ export const BundestagScreen = () => {
   return (
     <VotedProceduresWrapper
       onProcedureListItemClick={({ item }) =>
-        router.push(`procedure/${item.procedureId}`)
+        router.push(`/procedure/${item.procedureId}`)
       }
     >
       {({ totalProcedures, chartData }) => {

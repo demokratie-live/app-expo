@@ -26,6 +26,7 @@ import * as Notifications from "expo-notifications";
 import { useDevModeStore } from "../../api/state/dev";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SidebarParamList } from "../../app/(sidebar)/_layout";
+import { useTheme as useAppTheme } from '../../api/state/theme';
 
 const Wrapper = styled.View`
   background-color: ${({ theme }) => theme.colors.background.secondary};
@@ -39,7 +40,7 @@ const Text = styled.Text`
 `;
 
 // invisible button to toggle dev mode
-const DevModeButton = styled(TouchableOpacity)<{ devMode: boolean }>`
+const DevModeButton = styled(TouchableOpacity) <{ devMode: boolean }>`
   padding: 10px;
   margin-right: 10px;
   width: 20px;
@@ -76,6 +77,7 @@ export const SettingsScreen: React.FC = () => {
   const { notificationSettings, update: updateNotificationSettings } =
     useContext(NotificationsContext);
   const { colors } = useTheme();
+  const { themeMode, setThemeMode } = useAppTheme();
 
   const [authorized, setAuthorized] = useState(false);
   const [alreadyDenied, setAlreadyDenied] = useState(false);
@@ -157,8 +159,8 @@ export const SettingsScreen: React.FC = () => {
             isVerified === true
               ? "Verifiziert"
               : isVerified === false
-              ? "Verifizieren"
-              : "…",
+                ? "Verifizieren"
+                : "…",
           arrow: isVerified === false,
           onPress:
             isVerified === false ? navigateTo("verificate") : () => undefined,
@@ -287,6 +289,37 @@ export const SettingsScreen: React.FC = () => {
       ],
     });
   }
+
+  listData.push({
+    title: "Darstellung",
+    data: [
+      {
+        title: "System-Theme verwenden",
+        onPress: () => setThemeMode(themeMode === 'system' ? 'light' : 'system'),
+        component: (
+          <Switch
+            value={themeMode === 'system'}
+            onValueChange={(value) => {
+              setThemeMode(value ? 'system' : 'light');
+            }}
+          />
+        ),
+      },
+      {
+        title: "Dark Mode",
+        onPress: () => setThemeMode(themeMode === 'light' ? 'light' : 'dark'),
+        component: (
+          <Switch
+            value={themeMode === 'dark'}
+            onValueChange={(value) => {
+              setThemeMode(value ? 'dark' : 'light');
+            }}
+            disabled={themeMode === 'system'}
+          />
+        ),
+      },
+    ],
+  });
 
   return (
     <Wrapper>
