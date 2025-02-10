@@ -15,6 +15,7 @@ import {
   DrawerDescriptorMap,
   DrawerNavigationHelpers,
 } from "@react-navigation/drawer/lib/typescript/commonjs/src/types";
+import { useTheme } from "styled-components";
 
 type Props = Omit<
   DrawerNavigationOptions,
@@ -34,6 +35,7 @@ export default function DrawerItemList({
   descriptors,
   drawerInactiveBackgroundColor,
 }: Props) {
+  const theme = useTheme();
   let preCategory = "";
   return state.routes.map((route, i) => {
     const focused = i === state.index;
@@ -66,14 +68,14 @@ export default function DrawerItemList({
             label !== undefined
               ? label
               : title !== undefined
-              ? title
-              : route.name
+                ? title
+                : route.name
           }
           icon={drawerIcon}
           focused={focused}
           activeTintColor="#fff"
           inactiveTintColor="#fff"
-          activeBackgroundColor="rgba(68, 148, 211, 0.5)"
+          activeBackgroundColor={`${theme.colors.text.colored}80`}
           labelStyle={{
             color: "#fff",
           }}

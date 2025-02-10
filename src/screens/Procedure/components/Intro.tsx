@@ -6,6 +6,7 @@ import { ListItem } from '../../../components/ListItem';
 import { communityVoteData } from '../../../lib/PieChartCommunityData';
 import { pieChartGovernmentData } from '../../../lib/PieChartGovernmentData';
 import { CommunityVotes, VoteResult } from '../../../__generated__/graphql';
+import { useTheme } from 'styled-components/native';
 
 const Container = styled.View`
   padding-top: 18px;
@@ -36,6 +37,7 @@ export const Intro: React.FC<Props> = ({
   subjectGroups,
   votedGovernment,
 }) => {
+  const theme = useTheme();
   // If no session top headings available use subject groups
   let subline = null;
   if (sessionTOPHeading) {
@@ -49,11 +51,13 @@ export const Intro: React.FC<Props> = ({
     communityVotes,
     localSelection,
     voted,
+    theme
   });
 
   const govSlices = pieChartGovernmentData({
     voteResults,
     votedGovernment,
+    theme
   });
 
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { linking } from '../../../../lib/linking';
 import { Contacts } from '../..';
 import SvgMail from '../../../../components/Icons/Mail';
@@ -49,15 +49,17 @@ interface Props {
   contacts: Contacts[];
 }
 
-class ContactBox extends React.PureComponent<Props> {
-  getIcon = ({ name, url, username }: { name: string; url: string; username?: string }) => {
+const ContactBox: React.FC<Props> = ({ contacts }) => {
+  const theme = useTheme();
+
+  const getIcon = ({ name, url, username }: { name: string; url: string; username?: string }) => {
     switch (name) {
       case 'email': {
         const email = `mailto:${url}`;
         return (
           <ServiceWrapper key={url}>
             <IconWrapper onPress={linking(email)}>
-              <SvgMail width={40} height={40} color="#000" />
+              <SvgMail width={40} height={40} color={theme.colors.text.primary} />
             </IconWrapper>
           </ServiceWrapper>
         );
@@ -68,7 +70,7 @@ class ContactBox extends React.PureComponent<Props> {
         return (
           <ServiceWrapper key={url}>
             <IconWrapper onPress={linking(url)}>
-              <SvgFacebook width={40} height={40} color="#000" />
+              <SvgFacebook width={40} height={40} color={theme.colors.text.primary} />
             </IconWrapper>
             {!!username && <Username>{username}</Username>}
           </ServiceWrapper>
@@ -78,7 +80,7 @@ class ContactBox extends React.PureComponent<Props> {
         return (
           <ServiceWrapper key={url}>
             <IconWrapper onPress={linking(url)}>
-              <SvgTwitter width={40} height={40} color="#000" />
+              <SvgTwitter width={40} height={40} color={theme.colors.text.primary} />
             </IconWrapper>
             {!!username && <Username>{username}</Username>}
           </ServiceWrapper>
@@ -88,7 +90,7 @@ class ContactBox extends React.PureComponent<Props> {
         return (
           <ServiceWrapper key={url}>
             <IconWrapper onPress={linking(url)}>
-              <SvgInstagram width={40} height={40} color="#000" />
+              <SvgInstagram width={40} height={40} color={theme.colors.text.primary} />
             </IconWrapper>
             {!!username && <Username>{username}</Username>}
           </ServiceWrapper>
@@ -98,7 +100,7 @@ class ContactBox extends React.PureComponent<Props> {
         return (
           <ServiceWrapper key={url}>
             <IconWrapper onPress={linking(url)}>
-              <SvgPlanet width={40} height={40} color="#000" />
+              <SvgPlanet width={40} height={40} color={theme.colors.text.primary} />
             </IconWrapper>
             <Domain>{name}</Domain>
           </ServiceWrapper>
@@ -106,14 +108,11 @@ class ContactBox extends React.PureComponent<Props> {
     }
   };
 
-  render() {
-    const { contacts } = this.props;
-    return (
-      <ContactWrapper>
-        {contacts.map(({ name, URL, username }) => this.getIcon({ name, url: URL, username }))}
-      </ContactWrapper>
-    );
-  }
-}
+  return (
+    <ContactWrapper>
+      {contacts.map(({ name, URL, username }) => getIcon({ name, url: URL, username }))}
+    </ContactWrapper>
+  );
+};
 
 export default ContactBox;

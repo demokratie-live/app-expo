@@ -39,7 +39,7 @@ const Wrapper = styled.View`
   flex-direction: row;
   align-items: center;
   padding-horizontal: 18px;
-  background-color: #fafafa;
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const DropZone = styled.TouchableOpacity`
@@ -54,14 +54,6 @@ const DropZone = styled.TouchableOpacity`
 const CheckIcon = styled.Image.attrs(() => ({
   source: require("./assets/voteDropZone.png"),
 }))``;
-
-// const CheckIcon = styled(SimpleLineIcons).attrs(() => ({
-//   size: 80,
-//   color: "#000000",
-//   name: "check"
-// }))`
-//   padding-top: 5px;
-// `;
 
 const LineWrapper = styled.View`
   position: absolute;

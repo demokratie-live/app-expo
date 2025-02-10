@@ -38,7 +38,7 @@ const VoteDate = styled(VoteDateCmp)`
 const Title = styled.Text`
   font-size: 17px;
   min-height: 61px;
-  color: #030303;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const Subline = styled.Text`
@@ -93,10 +93,10 @@ const ListItem: React.FC<Props> = ({
       <MainWrapper>
         <Title
           numberOfLines={isIntro ? undefined : 3}
-          // TODO title length function
-          // onTextLayout={({ nativeEvent: { lines } }) =>
-          //   setTitleLines(lines.length)
-          // }
+        // TODO title length function
+        // onTextLayout={({ nativeEvent: { lines } }) =>
+        //   setTitleLines(lines.length)
+        // }
         >
           {title}
         </Title>

@@ -8,7 +8,7 @@ import SvgAbout from "../../components/Icons/About";
 import { useDevModeStore } from "../../api/state/dev";
 import { Drawer } from "expo-router/drawer";
 import { Sidebar } from "src/components/Sidebar/Sidebar";
-import { lightTheme } from "@democracy-deutschland/ui";
+import { useTheme } from "styled-components/native";
 
 export type SidebarParamList = {
   Bundestag: undefined;
@@ -22,6 +22,7 @@ export type SidebarParamList = {
 };
 
 const SidebarNavigation = () => {
+  const theme = useTheme();
   const { devMode } = useDevModeStore();
 
   return (
@@ -30,19 +31,19 @@ const SidebarNavigation = () => {
       drawerContent={(props) => <Sidebar {...props} />}
       screenOptions={{
         headerStyle: {
-          backgroundColor: lightTheme.colors.primary,
+          backgroundColor: theme.colors.primary,
           elevation: 0,
           shadowOpacity: 0,
         },
-        headerTintColor: lightTheme.colors.text.secondary,
+        headerTintColor: theme.colors.text.secondary,
         drawerType: "slide",
-        overlayColor: "rgba(0, 0, 0, 0.1)",
+        overlayColor: `${theme.colors.text.primary}1A`,
         drawerLabelStyle: {
-          color: "#fff",
+          color: theme.colors.text.primary,
         },
-        drawerActiveTintColor: "#fff",
-        drawerInactiveTintColor: "#fff",
-        drawerActiveBackgroundColor: "rgba(68, 148, 211, 0.5)",
+        drawerActiveTintColor: theme.colors.text.primary,
+        drawerInactiveTintColor: theme.colors.text.primary,
+        drawerActiveBackgroundColor: `${theme.colors.text.colored}80`,
       }}
     >
       <Drawer.Screen

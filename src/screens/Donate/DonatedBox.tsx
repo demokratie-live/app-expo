@@ -6,18 +6,17 @@ const Wrapper = styled.View`
   flex: 1;
   width: 100%;
   height: 68px;
-  background-color: rgba(68, 148, 211, 0.25);
+  background-color: ${({ theme }) => `${theme.colors.text.colored}40`};
   justify-content: center;
   align-items: center;
 `;
-// background-color: #4494d390;
 
 const FillBox = styled.View<{ width: number }>`
   position: absolute;
   align-self: flex-start;
   height: 100%;
   width: ${({ width }) => `${width}%`};
-  background-color: #4494d3;
+  background-color: ${({ theme }) => theme.colors.text.colored};
 `;
 
 const Money = styled.Text`
@@ -28,8 +27,8 @@ const Money = styled.Text`
 const Description = styled.Text`
   font-size: 13px;
   padding-top: 5px;
-  color: #4f4f4b;
-`; // color: rgb(0, 118, 255);
+  color: ${({ theme }) => theme.colors.text.tertiary};
+`;
 
 interface Props {
   target: number;

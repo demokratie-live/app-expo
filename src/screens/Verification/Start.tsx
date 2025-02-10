@@ -16,18 +16,18 @@ const ScrollView = styled.ScrollView.attrs(() => ({
     paddingVertical: 18,
   },
 }))`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const Text = styled.Text`
   font-size: 15px;
-  color: ${({ theme }) => theme.colors.text.tertiary};
+  color: ${({ theme }) => theme.colors.text.colored};
 `;
 
 const TextLink = styled.Text`
   font-size: 15px;
   padding-bottom: 8px;
-  color: rgb(68, 148, 211);
+  color: ${({ theme }) => theme.colors.text.colored};
   text-decoration: underline;
 `;
 

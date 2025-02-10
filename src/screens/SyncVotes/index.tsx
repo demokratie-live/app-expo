@@ -5,6 +5,7 @@ import VotesLocal, { ChainEntryRaw, ChainEntryRawZodArray } from '../../lib/Vote
 import { Button as UiButton } from '@democracy-deutschland/ui';
 import { useSetRecoilState } from 'recoil';
 import { votesLocalState } from '../../api/state/votesLocal';
+import { useTheme } from 'styled-components/native';
 
 const Container = styled.ScrollView.attrs({
   contentContainerStyle: {
@@ -55,6 +56,7 @@ const VoteTextArea = styled.TextInput`
 `;
 
 export const SyncVotesScreen = () => {
+  const theme = useTheme();
   const [showTextField, setShowTextField] = useState<boolean>(false);
   const [text, setText] = useState('');
   const setVotesLocal = useSetRecoilState(votesLocalState);
@@ -116,7 +118,7 @@ export const SyncVotesScreen = () => {
             {'Füge den gesamten Text {{"283063":…} in das Dialogfeld ein und wähle "SPEICHERN"'}
           </Text>
           <VoteTextArea
-            style={{ borderColor: 'black', borderWidth: 1, width: '100%', height: 200 }}
+            style={{ borderColor: theme.colors.text.primary, borderWidth: 1, width: '100%', height: 200 }}
             multiline
             onChangeText={setText}
             placeholder='{"data": "..."}'

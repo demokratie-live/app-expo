@@ -1,5 +1,6 @@
 import { LocalVote } from '../../../../api/state/votesLocal';
 import { VoteSelection } from '../../../../__generated__/graphql';
+import { DefaultTheme } from 'styled-components/native';
 
 // Filtered Array of procedures voted local
 export const getMatchingProcedures = ({
@@ -19,12 +20,14 @@ export const getMatchingProcedures = ({
 export const pieChartData = ({
   localVotes,
   matchingProcedures,
+  theme
 }: {
   localVotes: LocalVote[];
   matchingProcedures: {
     procedureId: string;
     decision: VoteSelection;
   }[];
+  theme: DefaultTheme
 }) => {
   // Pie Chart Data Preparation
   const pieDataRaw = matchingProcedures.map(({ decision, procedureId }) => {
@@ -50,14 +53,14 @@ export const pieChartData = ({
       percent: pieData.matches / pieData.count || 0,
       value: pieData.matches,
       total: pieData.count,
-      color: '#f5a623',
+      color: theme.colors.vote.wom.match,
     },
     {
       label: 'Differenzen',
       percent: pieData.diffs / pieData.count || 0,
       value: pieData.diffs,
       total: pieData.count,
-      color: '#b1b3b4',
+      color: theme.colors.vote.wom.missmatch,
     },
   ];
 };

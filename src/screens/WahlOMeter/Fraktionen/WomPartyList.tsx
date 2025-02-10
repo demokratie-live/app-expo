@@ -20,6 +20,7 @@ import {
   VotedPartyProceduresQuery,
 } from "../../../__generated__/graphql";
 import { useLegislaturePeriodStore } from "src/api/state/legislaturePeriod";
+import { useTheme } from "styled-components/native";
 
 const Container = styled.View`
   background-color: #fff;
@@ -40,6 +41,7 @@ export interface WomPartyListProps {
 const WomPartyList: React.FC<WomPartyListProps> = ({
   onProcedureListItemClick,
 }) => {
+  const theme = useTheme();
   const { legislaturePeriod } = useLegislaturePeriodStore();
   const parlamentIdentifier = `BT-${legislaturePeriod}` as ParlamentIdentifier;
   const parlament = parlaments[parlamentIdentifier];
@@ -107,6 +109,7 @@ const WomPartyList: React.FC<WomPartyListProps> = ({
                         votedGovernment: item.votedGovernment,
                         partyVotes: item.voteResults?.partyVotes,
                         selectedParty: party,
+                        theme,
                       })
                     : undefined,
                 }}
@@ -114,6 +117,7 @@ const WomPartyList: React.FC<WomPartyListProps> = ({
                   ...item,
                   localSelection,
                   voted,
+                  theme,
                 })}
               />
             </Row>

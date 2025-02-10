@@ -13,6 +13,7 @@ import DonatedBox from "../../screens/Donate/DonatedBox";
 import { rateApp } from "../../lib/rateApp";
 import { router } from "expo-router";
 import { useDevModeStore } from "src/api/state/dev";
+import { useTheme } from "styled-components";
 
 const SafeAreaView = styled.SafeAreaView`
   flex: 1;
@@ -28,7 +29,7 @@ const DonateBoxWrapper = styled.View`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: ${({ theme }) => `${theme.colors.text.primary}CC`};
 `;
 
 const DonationTouch = styled.TouchableOpacity`
@@ -44,6 +45,7 @@ const NaviList = styled.ScrollView`
 export type SidebarProps = React.ComponentProps<typeof DrawerItemList>;
 
 export const Sidebar: React.FC<SidebarProps> = (props) => {
+  const theme = useTheme();
   const { isVerified, verificationQueryRunning } = useInitialState();
   const { data } = useQuery<{ donationStatus: RestDonation }>(DONATION_STATUS);
   const [donationStatus, setDonationStatus] = useState<RestDonation>();
@@ -66,8 +68,8 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
   const headerLabel = verificationQueryRunning
     ? "verbindet…"
     : isVerified
-    ? "verifizierter Nutzer"
-    : "unverifizierter Nutzer";
+      ? "verifizierter Nutzer"
+      : "unverifizierter Nutzer";
 
   return (
     <Container>
@@ -84,13 +86,13 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
           <DrawerItem
             label="⭐️  App Bewerten"
             onPress={rateApp}
-            labelStyle={{ fontSize: 16, color: "#ddd" }}
+            labelStyle={{ fontSize: 16, color: theme.colors.text.primary }}
           />
           {devMode && (
             <DrawerItem
               label="🛠  Dev-Modus"
               onPress={() => router.push("/DevScreen")}
-              labelStyle={{ fontSize: 16, color: "#ddd" }}
+              labelStyle={{ fontSize: 16, color: theme.colors.text.primary }}
             />
           )}
         </NaviList>
@@ -99,9 +101,9 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
         <DonateBoxWrapper>
           <DonationTouch onPress={() => router.push("/Donate")}>
             <DonatedBox
-              style={{ backgroundColor: "#4494d390" }}
-              descriptionTextStyle={{ color: "#fff" }}
-              moneyTextStyle={{ color: "#fff" }}
+              style={{ backgroundColor: `${theme.colors.text.colored}90` }}
+              descriptionTextStyle={{ color: theme.colors.text.primary }}
+              moneyTextStyle={{ color: theme.colors.text.primary }}
               target={donationStatus.result.donation_value_goal}
               occupied={donationStatus.result.donation_value}
             />

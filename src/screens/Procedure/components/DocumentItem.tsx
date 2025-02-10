@@ -23,7 +23,7 @@ const ViewerButton = styled.TouchableOpacity`
 const Text = styled.Text`
   padding-left: 14px;
   font-size: 13px;
-  color: rgb(0, 118, 255);
+  color: ${({ theme }) => theme.colors.text.colored};
 `;
 
 const DownloadButton = styled.TouchableOpacity`

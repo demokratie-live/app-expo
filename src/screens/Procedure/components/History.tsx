@@ -19,11 +19,11 @@ const Icon = styled.View<IconProps>`
   width: 19px;
   height: 19px;
   border-radius: 9px;
-  background-color: ${({ currentStatus, state }) => {
+  background-color: ${({ currentStatus, state, theme }) => {
     if (state === '2. Beratung / 3. Beratung' || state === '1. Beratung') {
-      return '#9b9b9b';
+      return theme.colors.text.tertiary;
     }
-    return currentStatus === state ? '#0076ff' : '#4494d3';
+    return currentStatus === state ? theme.colors.text.colored : theme.colors.text.colored;
   }};
 `;
 
@@ -39,7 +39,7 @@ const Line = styled.View`
   left: 9px;
   top: 18px;
   bottom: 22px;
-  background-color: #979797;
+  background-color: ${({ theme }) => theme.colors.text.seperator};
 `;
 
 interface Props {

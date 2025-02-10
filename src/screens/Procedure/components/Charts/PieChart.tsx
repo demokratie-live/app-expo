@@ -3,6 +3,7 @@ import Svg, { Path, Circle, Text, G } from "react-native-svg";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
 import { Wrapper } from ".";
+import { useTheme } from "styled-components/native";
 
 const SvgStyled = styled(Svg).attrs({})``;
 
@@ -27,6 +28,7 @@ export const PieChart: React.FC<Props> = ({
   showPercentage,
   size,
 }) => {
+  const theme = useTheme();
   const [svgWidth, setSvgWidth] = useState(0);
 
   const onLayout = () => {
@@ -108,9 +110,8 @@ export const PieChart: React.FC<Props> = ({
                     {showPercentage && percent > 0.05 && (
                       <Text
                         textAnchor="middle"
-                        transform={`rotate(90, ${labelX * 0.7}, ${
-                          labelY * 0.7
-                        })`}
+                        transform={`rotate(90, ${labelX * 0.7}, ${labelY * 0.7
+                          })`}
                         fontSize="10"
                         x={labelX * 0.7}
                         y={labelY * 0.7}
@@ -127,17 +128,17 @@ export const PieChart: React.FC<Props> = ({
             {
               // TODO mask the circle
             }
-            <Circle cx="0" cy="0" r="18%" fill="#fff" />
+            <Circle cx="0" cy="0" r="18%" fill={theme.colors.background.primary} />
 
             {label && label.length > 0 && (
-              <Text fill="#4a4a4a" fontSize="10" textAnchor="middle">
+              <Text fill={theme.colors.text.tertiary} fontSize="10" textAnchor="middle">
                 {label}
               </Text>
             )}
             {subLabel && (
               <Text
                 letterSpacing="0.01em"
-                fill="#4a4a4a"
+                fill={theme.colors.text.tertiary}
                 y="5%"
                 fontSize="7"
                 textAnchor="middle"

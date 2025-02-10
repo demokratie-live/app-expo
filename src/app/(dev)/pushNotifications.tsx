@@ -5,8 +5,10 @@ import {
   registerForPushNotificationsAsync,
   sendPushNotification,
 } from "../../lib/pushNotifications";
+import { useTheme } from "styled-components/native";
 
 export default function PushNotifications() {
+  const theme = useTheme();
   const [pushToken, setPushToken] = useState("");
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
@@ -15,7 +17,7 @@ export default function PushNotifications() {
   const responseListener = useRef<Notifications.EventSubscription>();
 
   useEffect(() => {
-    registerForPushNotificationsAsync()
+    registerForPushNotificationsAsync({ theme })
       .then((token) => setPushToken(token ?? ""))
       .catch((error: any) => setPushToken(`${error}`));
 

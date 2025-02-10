@@ -7,15 +7,22 @@ import { NotificationsContext } from "../../../api/state/notificationPermission"
 import SvgConferenceWeekPlaceholder from "../../../components/Icons/ConferenceWeekPlaceholder";
 import { Space } from "../../../components/Space";
 import { router } from "expo-router";
+import { useTheme } from "styled-components/native";
 
 const Container = styled.ScrollView.attrs({
   flex: 1,
   alignItems: "center",
   justifyContent: "center",
-})``;
+})`
+  background-color: ${({ theme }) => theme.colors.background.primary};
+  padding-top: 18px;
+  flex-grow: 1;
+  min-height: 300px;
+`;
 
 const Text = styled.Text`
   font-size: 15px;
+  color: ${({ theme }) => theme.colors.text.primary};
   text-align: center;
   padding-left: 18px;
   padding-right: 18px;
@@ -35,12 +42,13 @@ const IconWrapper = styled.View`
 `;
 
 export const NoConferenceWeekData = () => {
+  const theme = useTheme();
   const { data } = useCurrentConferenceWeekQuery();
   const { notificationSettings } = useContext(NotificationsContext);
   return (
     <Container testID={"NoConferenceWeekData"}>
       <IconWrapper>
-        <SvgConferenceWeekPlaceholder width={150} height={150} color="#000" />
+        <SvgConferenceWeekPlaceholder width={150} height={150} color={theme.colors.text.primary} />
       </IconWrapper>
       <Space space={18} />
       <Text>
@@ -59,11 +67,11 @@ statt.`}
 
       {(!notificationSettings.enabled ||
         !notificationSettings.conferenceWeekPushs) && (
-        <Button
-          title="Benachrichtigen"
-          onPress={() => router.push("/Settings")}
-        />
-      )}
+          <Button
+            title="Benachrichtigen"
+            onPress={() => router.push("/Settings")}
+          />
+        )}
     </Container>
   );
 };

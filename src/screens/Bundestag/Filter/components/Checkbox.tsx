@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Text, Platform } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
 const Wrapper = styled.View<{
   value: boolean | 'mixed';
@@ -12,18 +13,18 @@ const Wrapper = styled.View<{
   border-radius: 12px;
   background-color: ${({ value, color, disabledColor }) => (value ? color : disabledColor)};
   border-width: 1px;
-  border-color: rgba(74, 74, 74, 0.2);
+  border-color: ${({ theme }) => `${theme.colors.text.primary}33`};
 `;
 
 const Checkmark = styled.View.attrs<{
   value: boolean | 'mixed';
   disabledColor?: string;
-}>(({ value, disabledColor }) => ({
-  color: value ? '#fff' : disabledColor,
+}>(({ value, disabledColor, theme }) => ({
+  color: value ? theme.colors.text.primary : disabledColor,
   size: 40,
   backgroundColor: 'transparent',
   name: 'ios-checkmark',
-}))<{ value: boolean | 'mixed'; disabledColor?: string }>`
+})) <{ value: boolean | 'mixed'; disabledColor?: string }>`
   align-items: center;
   justify-content: center;
   height: 24px;
@@ -39,19 +40,21 @@ interface Props {
   disabledCheckmarkColor?: string;
 }
 
-const white = '#fff';
-
 const Checkbox: React.FC<Props> = ({
   value,
-  color = '#4494d3',
-  disabledColor = '#fff',
-  disabledCheckmarkColor = '#fff',
-}) => (
-  <Wrapper color={color} disabledColor={disabledColor} value={value}>
-    <Checkmark value={value} disabledColor={disabledCheckmarkColor}>
-      {value && <Text style={{ color: white }}>✓</Text>}
-    </Checkmark>
-  </Wrapper>
-);
+  color,
+  disabledColor,
+  disabledCheckmarkColor,
+}) => {
+  const theme = useTheme();
+
+  return (
+    <Wrapper color={color || theme.colors.text.colored} disabledColor={disabledColor ?? theme.colors.text.primary} value={value}>
+      <Checkmark value={value} disabledColor={disabledCheckmarkColor ?? theme.colors.text.primary}>
+        {value && <Text style={{ color: theme.colors.text.primary }}>✓</Text>}
+      </Checkmark>
+    </Wrapper>
+  )
+};
 
 export default Checkbox;

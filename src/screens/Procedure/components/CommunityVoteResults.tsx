@@ -19,6 +19,8 @@ import GermanySvgComponent from "../../../components/svgs/GermanySVG";
 import { getConstituencySvgs } from "../../../components/svgs/constituencies";
 import { Pagination } from "@democracy-deutschland/ui";
 import { PieChartWrapper, ScrollView } from "./Charts";
+import { DefaultTheme } from "styled-components/native";
+import { useTheme } from "styled-components/native";
 
 const RepresentativeText = styled.Text`
   color: ${({ theme }) => theme.colors.text.tertiary};
@@ -30,7 +32,7 @@ const RepresentativeText = styled.Text`
 `;
 
 const CommunitySegmentText = styled.Text`
-  color: rgb(142, 142, 147);
+  color: ${({ theme }) => theme.colors.text.tertiary};
   font-size: 12px;
   padding-top: 8px;
   padding-bottom: 16px;
@@ -60,8 +62,9 @@ export const CommunityVoteResults: React.FC<Props> = ({
 
   const renderCommuntiyResult = (
     comunnityResults: CommunityVotes | CommunityConstituencyVotes,
-    key: string
+    key: string,
   ) => {
+    const theme = useTheme();
     if (
       comunnityResults &&
       (comunnityResults.yes ||
@@ -73,19 +76,19 @@ export const CommunityVoteResults: React.FC<Props> = ({
         {
           label: "Zustimmungen",
           percent: (comunnityResults.yes || 0) / votes,
-          color: "#15C063",
+          color: theme.colors.vote.community.yes,
           value: comunnityResults.yes,
         },
         {
           label: "Enthaltungen",
           percent: (comunnityResults.abstination || 0) / votes,
-          color: "#2C82E4",
+          color: theme.colors.vote.community.abstination,
           value: comunnityResults.abstination,
         },
         {
           label: "Ablehnungen",
           percent: (comunnityResults.no || 0) / votes,
-          color: "#EC3E31",
+          color: theme.colors.vote.community.no,
           value: comunnityResults.no,
         },
       ];
@@ -95,8 +98,8 @@ export const CommunityVoteResults: React.FC<Props> = ({
       const DynSvgComp = !isConstituencyChart
         ? GermanySvgComponent
         : myConstituency
-        ? getConstituencySvgs(myConstituency).default
-        : null;
+          ? getConstituencySvgs(myConstituency).default
+          : null;
 
       return (
         <PieChartWrapper width={width} key={key}>

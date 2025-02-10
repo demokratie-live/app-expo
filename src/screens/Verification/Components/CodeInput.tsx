@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 const Container = styled.View`
   border-bottom-width: 1px;
-  border-color: #979797;
+  border-color: ${({ theme }) => theme.colors.text.seperator};
   padding-bottom: 0px;
   flex-direction: row;
   margin-horizontal: 9px;
@@ -19,7 +19,7 @@ const Number = styled.TextInput.attrs(() => ({
 }))`
   flex: 1;
   font-size: 24px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text.primary};
   text-align: center;
   margin-bottom: 0px;
   padding-bottom: 0px;

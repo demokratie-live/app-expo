@@ -37,7 +37,7 @@ import { linking } from '../../lib/linking';
 
 const ScrollWrapper = styled.ScrollView`
   flex: 1;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const Wrapper = styled.View`
@@ -60,7 +60,7 @@ const Text = styled.Text`
 
 const TextLink = styled.Text`
   font-size: 15px;
-  color: rgb(68, 148, 211);
+  color: ${({ theme }) => theme.colors.text.colored};
   text-decoration: underline;
 `;
 

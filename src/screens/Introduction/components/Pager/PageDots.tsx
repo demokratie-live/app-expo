@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import styled from 'styled-components/native';
+import { useTheme } from 'styled-components/native';
 
 interface DotProps {
   size: number;
@@ -7,8 +8,8 @@ interface DotProps {
 }
 
 export const Dot = styled.View<DotProps>`
-  background-color: ${({ active }) =>
-    active ? 'rgba(68, 148, 211, 1)' : 'rgba(68, 148, 211, 0.5)'};
+  background-color: ${({ active, theme }) =>
+    active ? `${theme.colors.text.colored}` : `${theme.colors.text.colored}80`};
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
   border-radius: ${({ size }) => size}px;

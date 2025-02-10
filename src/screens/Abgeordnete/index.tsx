@@ -20,7 +20,7 @@ const Edit = styled.TouchableOpacity`
 `;
 
 const EditText = styled.Text`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: 16px;
   font-weight: 500;
 `;

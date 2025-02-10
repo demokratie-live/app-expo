@@ -5,11 +5,12 @@ import { Dimensions, Platform, Image, ImageSourcePropType } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import styled from "styled-components/native";
 import { PageProps } from "./Pager";
+import { useTheme } from "styled-components";
 
 const Container = styled.View`
   flex: 1;
   align-items: center;
-  background: #fff;
+  background: ${({ theme }) => theme.colors.background.primary};
   padding-top: ${() => {
     return Platform.OS === "ios" ? 24 : 8;
   }}px;
@@ -25,7 +26,7 @@ const ContainerText = styled.View`
 `;
 
 const TextHead = styled.Text`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: 22px;
   padding-top: 15px;
 `;
@@ -54,7 +55,7 @@ const ContainerCenterImage = styled.View`
 
 const ImageTranspContainer = styled.View`
   position: absolute;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.background.primary};
   border-radius: 40px;
 `;
 
@@ -77,7 +78,7 @@ const ButtonCircle = styled.TouchableOpacity`
 `;
 const ButtonVerify = styled.TouchableOpacity`
   bottom: 175px;
-  background-color: rgb(126, 211, 33);
+  background-color: ${({ theme }) => theme.colors.vote.community.yes};
   border-radius: 8px;
   width: 180px;
   height: 41px;
@@ -85,7 +86,7 @@ const ButtonVerify = styled.TouchableOpacity`
 `;
 
 const TextVerify = styled.Text`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: 22px;
   text-align: center;
   padding-top: 6px;
@@ -129,6 +130,7 @@ export const Slide: React.FC<Props> = ({
   verify,
   nextPage,
 }) => {
+  const theme = useTheme();
   const circleImage = images.circle || require("./assets/icon.touch.png");
 
   const handleNextSlide = () => {
@@ -176,7 +178,7 @@ export const Slide: React.FC<Props> = ({
         </ContainerCenterImage>
       </ContainerImages>
       <LinearGradient
-        colors={["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 1)"]}
+        colors={[`${theme.colors.text.primary}00`, theme.colors.text.primary]}
         locations={[0, 0.5]}
         style={{
           height: 35,

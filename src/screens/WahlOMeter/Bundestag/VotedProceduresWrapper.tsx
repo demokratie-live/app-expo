@@ -17,6 +17,7 @@ import { ListItem } from "../../../components/ListItem";
 import { pieChartGovernmentData } from "../../../lib/PieChartGovernmentData";
 import { communityVoteData } from "../../../lib/PieChartCommunityData";
 import { useLegislaturePeriodStore } from "src/api/state/legislaturePeriod";
+import { useTheme } from "styled-components/native";
 
 const Container = styled.View`
   background-color: #fff;
@@ -47,6 +48,7 @@ const VotedProceduresWrapper: React.FC<Props> = ({
   onProcedureListItemClick,
   children,
 }) => {
+  const theme = useTheme();
   const { legislaturePeriod } = useLegislaturePeriodStore();
   const parlamentIdentifier = `BT-${legislaturePeriod}` as ParlamentIdentifier;
   const parlament = parlaments[parlamentIdentifier];
@@ -63,8 +65,8 @@ const VotedProceduresWrapper: React.FC<Props> = ({
   const proceduresData = proceduresDataNew?.partyChartProcedures
     ? proceduresDataNew
     : proceduresDataPrev?.partyChartProcedures
-    ? proceduresDataPrev
-    : undefined;
+      ? proceduresDataPrev
+      : undefined;
 
   const {
     data: procedurListDataNew,
@@ -79,8 +81,8 @@ const VotedProceduresWrapper: React.FC<Props> = ({
   const procedurListData = procedurListDataNew?.proceduresByIdHavingVoteResults3
     ? procedurListDataNew
     : procedurListDataPrev?.proceduresByIdHavingVoteResults3
-    ? procedurListDataPrev
-    : undefined;
+      ? procedurListDataPrev
+      : undefined;
 
   let hasMore = true;
   // if (!localVotes || localVotes.length === 0) {
@@ -96,8 +98,8 @@ const VotedProceduresWrapper: React.FC<Props> = ({
   }
   const listData =
     procedurListData &&
-    procedurListData.proceduresByIdHavingVoteResults3 &&
-    procedurListData.proceduresByIdHavingVoteResults3.procedures
+      procedurListData.proceduresByIdHavingVoteResults3 &&
+      procedurListData.proceduresByIdHavingVoteResults3.procedures
       ? procedurListData.proceduresByIdHavingVoteResults3.procedures
       : [];
 
@@ -112,8 +114,8 @@ const VotedProceduresWrapper: React.FC<Props> = ({
           const localSelection =
             item !== "chart"
               ? localVotes.find(
-                  (localVote) => localVote.procedureId === item.procedureId
-                )?.selection
+                (localVote) => localVote.procedureId === item.procedureId
+              )?.selection
               : undefined;
           const voted = !!localSelection;
           return item === "chart" ? (
@@ -141,12 +143,14 @@ const VotedProceduresWrapper: React.FC<Props> = ({
                     largeDecision: item.voteResults
                       ? item.voteResults.governmentDecision
                       : undefined,
+                    theme
                   }),
                 }}
                 communityVotes={communityVoteData({
                   ...item,
                   localSelection,
                   voted,
+                  theme
                 })}
               />
             </Row>

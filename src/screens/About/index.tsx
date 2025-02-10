@@ -13,6 +13,7 @@ import { MadeWithLove } from "../../components/MadeWithLove";
 import { Space } from "../../components/Space";
 import { linking } from "../../lib/linking";
 import { credentialsData } from "./data";
+import { useTheme } from "styled-components";
 
 const phoneNumber =
   Platform.OS === "ios"
@@ -63,10 +64,11 @@ const Markdown: React.FC<MarkdownProps> = ({
   styles = {},
   style = {},
 }) => {
+  const theme = useTheme();
   const markdownStyles = deepmerge(
     {
       paragraph: {
-        color: "#555",
+        color: theme.colors.text.tertiary,
         ...(styles.paragraph || []),
       },
     },
@@ -90,6 +92,7 @@ const Markdown: React.FC<MarkdownProps> = ({
 };
 
 export const AboutScreen: React.FC = () => {
+  const theme = useTheme();
   return (
     <Wrapper>
       <Content>
@@ -138,13 +141,13 @@ Für mehr Informationen:
       <Space space={36} />
       <ContactWrapper>
         <IconWrapper onPress={linking(phoneNumber)}>
-          <SvgPhone color="#000" width={30} height={30} />
+          <SvgPhone color={theme.colors.text.primary} width={30} height={30} />
         </IconWrapper>
         <IconWrapper onPress={linking(email)}>
-          <SvgMail color="#000" width={30} height={30} />
+          <SvgMail color={theme.colors.text.primary} width={30} height={30} />
         </IconWrapper>
         <IconWrapper onPress={linking(website)}>
-          <SvgPlanet color="#000" width={30} height={30} />
+          <SvgPlanet color={theme.colors.text.primary} width={30} height={30} />
         </IconWrapper>
       </ContactWrapper>
       <Space space={36} />

@@ -4,19 +4,19 @@ import SvgArrow from "../../../components/Icons/Arrow";
 
 const Wrapper = styled.TouchableOpacity`
   flex-direction: row;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.background.primary};
   height: 44px;
   align-items: center;
   padding-left: 16px;
   padding-right: 18px;
   border-bottom-width: 1px;
-  border-bottom-color: #c8c7cc;
+  border-bottom-color: ${({ theme }) => theme.colors.text.seperator};
   font-size: 17px;
 `;
 
 const Value = styled.Text<{ arrow: boolean }>`
   font-size: 17px;
-  color: ${({ theme }) => theme.colors.text.seperator};
+  color: ${({ theme }) => theme.colors.text.tertiary};
   padding-right: ${({ arrow }) => (arrow ? 5 : 12)}px;
 `;
 
@@ -27,23 +27,13 @@ const Description = styled.Text`
   padding-vertical: 8px;
 `;
 
-const Arrow = styled(SvgArrow).attrs(() => ({
-  color: "rgb(180, 180, 180)",
+const Arrow = styled(SvgArrow).attrs(({ theme }) => ({
+  color: theme.colors.text.tertiary,
   width: 17,
   height: 17,
 }))`
   transform: rotate(90deg);
 `;
-
-// const NavigationIoniconsIcon = styled(Ionicons).attrs(() => ({
-//   size: 24,
-//   color: 'grey',
-// }))`
-//   text-align: center;
-//   width: 24px;
-//   padding-right: 10px;
-//   margin-top: 3px;
-// `;
 
 export interface Props extends PropsWithChildren {
   text?: string;

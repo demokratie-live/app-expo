@@ -16,10 +16,11 @@ const NoVotesWrapper = styled.ScrollView.attrs({
 `;
 
 const Text = styled.Text`
-  font-size: 15px;
-  color: #4a4a4a;
-  text-align: center;
   padding-horizontal: 18px;
+  padding-vertical: 18px;
+  text-align: center;
+  font-size: 18px;
+  color: ${({ theme }) => theme.colors.text.tertiary};
 `;
 
 interface Props {

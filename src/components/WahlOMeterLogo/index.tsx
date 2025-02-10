@@ -9,19 +9,19 @@ const Wrapper = styled.View`
   border-radius: ${CIRCLE_SIZE / 2}px;
   border-width: 2px;
   border-style: solid;
-  border-color: #979797;
+  border-color: ${({ theme }) => theme.colors.text.tertiary};
   justify-content: center;
   align-items: center;
 `;
 
 const Headline = styled.Text`
   font-size: 27px;
-  color: #000;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 const Subline = styled.Text`
   font-size: 15px;
-  color: #db9522;
+  color: ${({ theme }) => theme.colors.text.badge};
 `;
 
 interface Props {

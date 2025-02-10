@@ -6,7 +6,7 @@ import SvgShareIos from '../../../components/Icons/ShareIos';
 import SvgShare from '../../../components/Icons/Share';
 import SvgBell from '../../../components/Icons/Bell';
 import SvgBellSlash from '../../../components/Icons/BellSlash';
-import { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components/native';
 
 // Pick<Slice, 'percent' | 'large'>
 const VoteIconButtonWrapper = styled.TouchableOpacity<
@@ -14,24 +14,34 @@ const VoteIconButtonWrapper = styled.TouchableOpacity<
 >`
   width: 88px;
   height: 88px;
-
-  border-color: rgba(21, 192, 99, 0.8);
+  border-color: ${({ theme, selection }) => {
+    switch (selection) {
+      case 'ACTIVITY_INDEX':
+        return theme.colors.primary;
+      case 'NOTIFY':
+        return theme.colors.text.badge;
+      case 'SHARE':
+        return theme.colors.tertiary; // TODO: Add to theme
+      default:
+        return theme.colors.text.tertiary;
+    }
+  }};
   border-radius: ${88 / 2}px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ selection, voteSelection, voted }) => {
+  background-color: ${({ selection, voteSelection, voted, theme }) => {
     if ((voted || voteSelection) && selection !== voteSelection) {
-      return 'grey';
+      return theme.colors.text.tertiary;
     }
     switch (selection) {
       case 'ACTIVITY_INDEX':
-        return '#4494d3';
+        return theme.colors.primary;
       case 'NOTIFY':
-        return '#f5a623';
+        return theme.colors.text.badge;
       case 'SHARE':
-        return '#b10dd3';
+        return theme.colors.tertiary; // TODO: Add to theme
       default:
-        return 'grey';
+        return theme.colors.text.tertiary;
     }
   }};
 `;
@@ -71,7 +81,7 @@ const ActionButton: React.FC<Props> = ({
   switch (selection) {
     case 'ACTIVITY_INDEX':
       styleWrapper = {
-        borderColor: '#4494d3',
+        borderColor: theme.colors.primary,
       };
       Icon = (
         <TouchableOpacity onPress={onPress}>
@@ -81,7 +91,7 @@ const ActionButton: React.FC<Props> = ({
       break;
     case 'NOTIFY':
       styleWrapper = {
-        borderColor: '#f5a623',
+        borderColor: theme.colors.text.badge,
       };
       Icon = !notify ? (
         <SvgBell width={50} height={50} color="#fff" />
@@ -91,7 +101,7 @@ const ActionButton: React.FC<Props> = ({
       break;
     case 'SHARE':
       styleWrapper = {
-        borderColor: '#b10dd3',
+        borderColor: theme.colors.tertiary, // TODO: Add to theme
       };
       Icon = (
         <ShareComponent

@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 const Container = styled.View`
   border-bottom-width: 1px;
-  border-color: #979797;
+  border-color: ${({ theme }) => theme.colors.text.seperator};
   padding-bottom: 0px;
   flex-direction: row;
   margin-horizontal: 9px;

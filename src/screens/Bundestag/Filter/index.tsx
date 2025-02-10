@@ -11,17 +11,18 @@ import { FilterEntry } from "../../../api/hooks/useListFilter/initData";
 import { useRecoilState } from "recoil";
 import { filterState } from "../../../api/state/filter";
 import { useNavigation } from "expo-router";
+import { useTheme } from "styled-components";
 
 const Save = styled.TouchableOpacity``;
 
 const SaveText = styled.Text`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: 16px;
   font-weight: 500;
 `;
 
 const Container = styled.View`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.background.primary};
 `;
 
 const ListRowMain = styled.View`
@@ -37,7 +38,6 @@ const Row = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* background-color: #ffff0055; */
 `;
 
 const TitleMain = styled.Text`
@@ -57,6 +57,7 @@ type FilterScreenNavigationProp = NativeStackNavigationProp<
 >;
 
 export const FilterScreen: React.FC = () => {
+  const theme = useTheme();
   const navigation = useNavigation<FilterScreenNavigationProp>();
   const { isVerified } = useInitialState();
   const [filter, setFilter] = useRecoilState(filterState);
@@ -180,8 +181,8 @@ export const FilterScreen: React.FC = () => {
         sections={data}
         renderSectionHeader={({ section: { title, name } }) => {
           const sectionValue = getValue({ type: name });
-          const mainCheckboxColor = sectionValue ? "#1c659f" : "#fff";
-          const mainCheckboxDisabledColor = sectionValue ? "#1c659f" : "#fff";
+          const mainCheckboxColor = sectionValue ? theme.colors.text.colored : theme.colors.text.primary;
+          const mainCheckboxDisabledColor = sectionValue ? theme.colors.text.colored : theme.colors.text.primary;
           return (
             <View>
               <Segment text={title} />
@@ -190,7 +191,7 @@ export const FilterScreen: React.FC = () => {
                   paddingVertical: 11,
                   paddingHorizontal: 18,
                   borderBottomWidth: 1,
-                  borderColor: lightgrey,
+                  borderColor: `${theme.colors.text.primary}1A`,
                 }}
                 onPress={() => {
                   const curValue = getValue({ type: name });
@@ -218,7 +219,7 @@ export const FilterScreen: React.FC = () => {
                 <Row
                   style={{
                     borderBottomWidth: 1,
-                    borderColor: "rgba(0,0,0,0.1)",
+                    borderColor: `${theme.colors.text.primary}1A`,
                     paddingLeft: 8,
                     paddingVertical: 8,
                     paddingRight: 18,

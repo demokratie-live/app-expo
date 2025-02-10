@@ -28,6 +28,7 @@ import { Row } from "../../../components/Row";
 import { ListItem } from "../../../components/ListItem";
 import { useRouter } from "expo-router";
 import { useLegislaturePeriodStore } from "src/api/state/legislaturePeriod";
+import { useTheme } from "styled-components/native";
 
 export interface SegmentedData {
   title: string;
@@ -129,6 +130,7 @@ export const List: React.FC<ListProps> = ({ list }) => {
       },
       index,
     }) => {
+      const theme = useTheme();
       // If no session top headings available use subject groups
       let subline = null;
       if (sessionTOPHeading) {
@@ -140,6 +142,7 @@ export const List: React.FC<ListProps> = ({ list }) => {
       const govSlices = pieChartGovernmentData({
         voteResults,
         votedGovernment,
+        theme
       });
 
       const localSelection = localVotes.find(
@@ -151,6 +154,7 @@ export const List: React.FC<ListProps> = ({ list }) => {
         communityVotes,
         localSelection,
         voted,
+        theme
       });
 
       return (

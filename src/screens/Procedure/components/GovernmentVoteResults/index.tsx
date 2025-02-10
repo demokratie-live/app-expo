@@ -10,6 +10,7 @@ import { useInitialState } from "../../../../api/state/initialState";
 import Folding from "../../../../components/Folding";
 import { Pagination } from "@democracy-deutschland/ui";
 import { PieChartWrapper, ScrollView } from "../Charts";
+import { useTheme } from "styled-components";
 
 const DecisionTextView = styled.ScrollView`
   max-height: 400px;
@@ -24,7 +25,7 @@ const DecisionTextHeadline = styled.Text`
 `;
 
 const DecisionText = styled.Text`
-  color: rgb(142, 142, 147);
+  color: ${({ theme }) => theme.colors.text.tertiary};
   padding-top: 18px;
 `;
 
@@ -36,7 +37,7 @@ const RepresentativeText = styled.Text`
 `;
 
 const RepresentativeTextBlack = styled(RepresentativeText)`
-  color: #000;
+  color: ${({ theme }) => theme.colors.text.primary};
 `;
 
 interface Props {
@@ -50,6 +51,7 @@ export const GovernmentVoteResults: React.FC<Props> = ({
   currentStatus,
   voted,
 }) => {
+  const theme = useTheme();
   const [activeSlide, setActiveSlide] = useState<number>(0);
   const { isVerified } = useInitialState();
   const { width } = useWindowDimensions();
@@ -67,7 +69,7 @@ export const GovernmentVoteResults: React.FC<Props> = ({
       <Folding title="Bundestagsergebnis" opened={!isVerified || voted}>
         <ScrollView>
           <PieChart
-            data={[{ label: "Zurückgezogen", percent: 1, color: "#B1B3B4" }]}
+            data={[{ label: "Zurückgezogen", percent: 1, color: theme.colors.vote.government.notVoted }]}
             label="Zurückgezogen"
           />
         </ScrollView>
@@ -86,19 +88,19 @@ export const GovernmentVoteResults: React.FC<Props> = ({
         label: "Zustimmungen",
         percent: (voteResults.yes || 0) / votes,
         value: voteResults.yes,
-        color: "#99C93E",
+        color: theme.colors.vote.government.yes,
       },
       {
         label: "Enthaltungen",
         percent: (voteResults.abstination || 0) / votes,
         value: voteResults.abstination,
-        color: "#4CB0D8",
+        color: theme.colors.vote.government.abstination,
       },
       {
         label: "Ablehnungen",
         percent: (voteResults.no || 0) / votes,
         value: voteResults.no,
-        color: "#D43194",
+        color: theme.colors.vote.government.no,
       },
     ];
 
@@ -107,7 +109,7 @@ export const GovernmentVoteResults: React.FC<Props> = ({
         label: "Abwesend",
         percent: (voteResults.notVoted || 0) / votes,
         value: voteResults.notVoted || 0,
-        color: "#B1B3B4",
+        color: theme.colors.vote.government.notVoted,
       });
     }
     const dataPartyChart = voteResults.partyVotes.map(({ party, deviants }) => {
@@ -117,28 +119,28 @@ export const GovernmentVoteResults: React.FC<Props> = ({
           {
             label: "Zustimmungen",
             value: deviants.yes || 0,
-            color: "#99C93E",
+            color: theme.colors.vote.government.yes,
           },
           {
             label: "Enthaltungen",
             value: deviants.abstination || 0,
-            color: "#4CB0D8",
+            color: theme.colors.vote.government.abstination,
           },
-          { label: "Ablehnungen", value: deviants.no || 0, color: "#D43194" },
+          { label: "Ablehnungen", value: deviants.no || 0, color: theme.colors.vote.government.no },
         ],
       };
       if (voteResults.namedVote) {
         partyData.values.push({
           label: "Abwesend",
           value: deviants.notVoted || 0,
-          color: "#B1B3B4",
+          color: theme.colors.vote.government.notVoted,
         });
       }
       return partyData;
     });
-    const partyColors = ["#D43194", "#4CB0D8", "#99C93E"];
+    const partyColors = [theme.colors.vote.government.no, theme.colors.vote.government.abstination, theme.colors.vote.government.yes];
     if (voteResults.namedVote) {
-      partyColors.unshift("#B1B3B4");
+      partyColors.unshift(theme.colors.vote.government.notVoted);
     }
 
     const screens = [
@@ -146,9 +148,8 @@ export const GovernmentVoteResults: React.FC<Props> = ({
         <PieChart
           data={dataPieChart}
           subLabel={voteResults.namedVote ? "Abgeordnete" : "Fraktionen"}
-          label={`${
-            voteResults.namedVote ? votes : voteResults.partyVotes.length
-          }`}
+          label={`${voteResults.namedVote ? votes : voteResults.partyVotes.length
+            }`}
           showPercentage
         />
         <ChartLegend data={dataPieChart} />

@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 const Box = styled.View`
   width: 100%;
   border-radius: 6px;
-  border-color: #ced1d2;
+  border-color: ${({ theme }) => theme.colors.text.seperator};
   /* padding-top: 18px; */
 `;
 

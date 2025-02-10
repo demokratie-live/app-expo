@@ -15,10 +15,10 @@ const Wrapper = styled.View<{ width: number }>`
 
 const InfoIconButton = styled.TouchableOpacity``;
 
-const InfoIcon = styled(SvgInfo).attrs(() => ({
+const InfoIcon = styled(SvgInfo).attrs(({ theme }) => ({
   width: 18,
   height: 18,
-  color: "rgb(199, 199, 204)",
+  color: theme.colors.text.tertiary,
 }))`
   margin-left: ${({ theme }) => theme.spaces.small};
 `;
@@ -54,17 +54,16 @@ const Decision = styled.Text<{ decision: string | null }>`
   font-size: 21px;
   padding-top: 14px;
   padding-bottom: 3px;
-  color: ${({ decision }) => {
+  color: ${({ decision, theme }) => {
     switch (decision) {
       case "YES":
-        return "#99c93e";
+        return theme.colors.vote.government.yes;
       case "ABSTINATION":
-        return "#4CB0D8";
+        return theme.colors.vote.government.abstination;
       case "NO":
-        return "#D43194";
-
+        return theme.colors.vote.government.no;
       default:
-        return "#B1B3B4";
+        return theme.colors.vote.government.notVoted;
     }
   }};
 `;

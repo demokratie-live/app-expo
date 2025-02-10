@@ -8,6 +8,7 @@ import SvgWahlOMeter from "src/components/Icons/WahlOMeter";
 import { AvatarIcon } from "@democracy-deutschland/ui";
 import { useState } from "react";
 import { useLegislaturePeriodStore } from "src/api/state/legislaturePeriod";
+import { useTheme } from "styled-components";
 
 interface ParlamentProps {
   parlamentKey: string;
@@ -20,6 +21,7 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
   parlaments,
   currentTap,
 }) => {
+  const theme = useTheme();
   const { legislaturePeriod, setLegislaturePeriod } =
     useLegislaturePeriodStore();
   const [isOpen, setIsOpen] = useState(
@@ -37,32 +39,32 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
       },
       { parlamentIdentifier }: { parlamentIdentifier: ParlamentIdentifier }
     ) =>
-    () => {
-      setLegislaturePeriod(String(parl.period));
-      switch (route.name) {
-        case "Procedures":
-          console.log(
-            "router.push",
-            `/(sidebar)/${parl.period}/${route.name}/${parl.mainScreen}`
-          );
-          router.push(
-            `/(sidebar)/${parl.period}/${route.name}/${parl.mainScreen}`
-          );
-          break;
-        case "WahlOMeter":
-        case "Deputies":
-          console.log("router.push", `/(sidebar)/${parl.period}/${route.name}`);
-          router.push(`/(sidebar)/${parl.period}/${route.name}`);
-          break;
-      }
-    };
+      () => {
+        setLegislaturePeriod(String(parl.period));
+        switch (route.name) {
+          case "Procedures":
+            console.log(
+              "router.push",
+              `/(sidebar)/${parl.period}/${route.name}/${parl.mainScreen}`
+            );
+            router.push(
+              `/(sidebar)/${parl.period}/${route.name}/${parl.mainScreen}`
+            );
+            break;
+          case "WahlOMeter":
+          case "Deputies":
+            console.log("router.push", `/(sidebar)/${parl.period}/${route.name}`);
+            router.push(`/(sidebar)/${parl.period}/${route.name}`);
+            break;
+        }
+      };
 
   const drawerItemProps = {
-    activeTintColor: "#fff",
-    inactiveTintColor: "#fff",
-    activeBackgroundColor: "rgba(68, 148, 211, 0.5)",
+    activeTintColor: theme.colors.text.primary,
+    inactiveTintColor: theme.colors.text.primary,
+    activeBackgroundColor: `${theme.colors.text.colored}80`,
     labelStyle: {
-      color: "#fff",
+      color: theme.colors.text.primary,
     },
   };
 
@@ -82,7 +84,7 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
         <S.Headline>{`${parl.institution} LP ${parl.period}`}</S.Headline>
         <CollapseIcon
           open={isOpen}
-          color="rgb(255, 255, 255)"
+          color={theme.colors.text.primary}
           width={16}
           height={16}
         />
@@ -90,7 +92,8 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
       {isOpen && (
         <>
           <DrawerItem
-            label="Vorgänge"
+            {...drawerItemProps}
+            label="Verfahren"
             icon={({ color, size }) => (
               <SvgGovernment width={size} height={size} color={color} />
             )}
@@ -101,9 +104,9 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
             focused={isFocused("Procedures", {
               parlamentIdentifier: parl.identifier,
             })}
-            {...drawerItemProps}
           />
           <DrawerItem
+            {...drawerItemProps}
             label="Wahl-O-Meter"
             icon={({ color, size }) => (
               <SvgWahlOMeter width={size} height={size} color={color} />
@@ -115,9 +118,9 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
             focused={isFocused("WahlOMeter", {
               parlamentIdentifier: parl.identifier,
             })}
-            {...drawerItemProps}
           />
           <DrawerItem
+            {...drawerItemProps}
             label="Abgeordnete"
             icon={({ color, size }) => (
               <AvatarIcon width={size} height={size} fill={color} />
@@ -129,7 +132,6 @@ export const ParlamentDrawerItem: React.FC<ParlamentProps> = ({
             focused={isFocused("Deputies", {
               parlamentIdentifier: parl.identifier,
             })}
-            {...drawerItemProps}
           />
         </>
       )}

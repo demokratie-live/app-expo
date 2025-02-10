@@ -9,6 +9,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Space } from "../../../components/Space";
 import { ButtonNext } from "../../Verification/Start";
 import { useNavigation } from "@react-navigation/native";
+import { useTheme } from "styled-components/native";
 
 const Wrapper = styled.View<Pick<Props, "noButton">>`
   align-items: center;
@@ -49,17 +50,18 @@ interface Props {
 
 export const NoConstituency: React.FC<Props> = ({ noButton }) => {
   const navigation = useNavigation<ScreenNavigationProp>();
+  const theme = useTheme();
   const randomMainValue = Math.random() * (1 - 0.7);
   const randomSecondValue = Math.min(
     ...[Math.random() * (1 - randomMainValue), 0.2]
   );
 
   const pieChartData = [
-    { percent: randomMainValue, color: "#59BC6D", label: "Zustimmungen" },
-    { percent: randomSecondValue, color: "#4183DD", label: "Enthaltungen" },
+    { percent: randomMainValue, color: theme.colors.vote.community.yes, label: "Zustimmungen" },
+    { percent: randomSecondValue, color: theme.colors.vote.community.abstination, label: "Enthaltungen" },
     {
       percent: 1 - randomMainValue - randomSecondValue,
-      color: "#DB4D3C",
+      color: theme.colors.vote.community.no,
       label: "Ablehnungen",
     },
   ];

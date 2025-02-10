@@ -4,8 +4,8 @@ import styled from "styled-components/native";
 import ArrowIcon from "../Icons/Arrow";
 
 const Wrapper = styled.View`
+  background-color: ${({ theme }) => theme.colors.background.primary};
   margin-top: 11px;
-  background-color: #fff;
   border-radius: 5px;
 `;
 
@@ -26,11 +26,11 @@ interface CollapseIconProps extends SvgProps {
   open: boolean;
 }
 
-const CollapseIcon = styled(ArrowIcon).attrs(() => ({
-  color: "rgb(151, 151, 151)",
+const CollapseIcon = styled(ArrowIcon).attrs(({ theme }) => ({
+  color: theme.colors.text.tertiary,
   width: 20,
   height: 20,
-}))<CollapseIconProps>`
+})) <CollapseIconProps>`
   align-self: flex-start;
   transform: ${({ open }) => (open ? "rotate(0deg)" : "rotate(180deg)")};
 `;

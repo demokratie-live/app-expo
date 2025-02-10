@@ -1,5 +1,6 @@
-import React from 'react';
-import { G, Text, Rect } from 'react-native-svg';
+import React from "react";
+import { G, Text, Rect } from "react-native-svg";
+import { useTheme } from "styled-components/native";
 
 export interface BarChartValue {
   label: string;
@@ -14,16 +15,26 @@ interface Props {
   barsNumber: number;
 }
 
-const BarColumn: React.FC<Props> = ({ values, index, maxValue, barsNumber }) => {
+const BarColumn: React.FC<Props> = ({
+  values,
+  index,
+  maxValue,
+  barsNumber,
+}) => {
+  const theme = useTheme();
   // Y Iterator startig from Bottom
   let barElementY = 100;
 
   // Width of one Bar
   const barWidth = 20;
   // Padding between the Bars, max 15
-  const paddingInner = Math.min(Math.ceil((100 - barsNumber * barWidth) / (barsNumber - 1)), 15);
+  const paddingInner = Math.min(
+    Math.ceil((100 - barsNumber * barWidth) / (barsNumber - 1)),
+    15
+  );
   // Padding on the Edges
-  const paddingOuter = (100 - (paddingInner * (barsNumber - 1) + barWidth * barsNumber)) / 2;
+  const paddingOuter =
+    (100 - (paddingInner * (barsNumber - 1) + barWidth * barsNumber)) / 2;
   // Bar X Position
   const barX = paddingOuter + index * (paddingInner + barWidth);
   // MinSize for Text
@@ -31,9 +42,9 @@ const BarColumn: React.FC<Props> = ({ values, index, maxValue, barsNumber }) => 
   // Text Size
   const textSize = 5;
   // Text Color
-  const textColor = '#fff';
+  const textColor = theme.colors.text.secondary; // This maps to white in both themes
   // Text Anchor
-  const textAnchor = 'middle';
+  const textAnchor = "middle";
   // Text x
   const textX = barWidth / 2;
 

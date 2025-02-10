@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components/native";
 
-const RowWrapper = styled.TouchableHighlight.attrs({
-  underlayColor: "rgba(68, 148, 211, 0.1)",
-})`
+const RowWrapper = styled.TouchableHighlight.attrs(({ theme }) => ({
+  underlayColor: `${theme.colors.text.colored}1A`,
+}))`
   padding-vertical: 14px;
   padding-horizontal: 18px;
-  border-bottom-color: #c8c7cc;
+  border-bottom-color: ${({ theme }) => theme.colors.text.seperator};
   border-bottom-width: 1px;
 `;
 

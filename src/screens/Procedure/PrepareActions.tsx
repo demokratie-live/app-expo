@@ -27,7 +27,7 @@ const SegmentWrapper = styled.View`
   padding-horizontal: 18px;
   flex-direction: row;
   border-bottom-width: 1px;
-  border-bottom-color: rgba(68, 148, 211, 0.1);
+  border-bottom-color: ${({ theme }) => `${theme.colors.text.colored}1A`};
   align-items: center;
 `;
 
@@ -63,7 +63,7 @@ const Title = styled.Text`
 
 const TitleAddition = styled.Text`
   font-size: 18px;
-  color: grey;
+  color: ${({ theme }) => theme.colors.text.tertiary};
   padding-left: 5px;
 `;
 
@@ -74,19 +74,11 @@ const VerificationTouch = styled.TouchableOpacity`
   z-index: 100;
 `;
 
-// const InfoIcon = styled(Ionicons).attrs(() => ({
-//   size: 35,
-//   name: 'ios-information',
-//   color: 'grey',
-// }))`
-//   margin-top: -4px;
-// `;
-
 const LockIconWrapper = styled.View`
   position: absolute;
   top: -3px;
   right: -3px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: ${({ theme }) => `${theme.colors.text.primary}E6`};
   width: 30px;
   height: 30px;
   align-items: center;
@@ -94,7 +86,7 @@ const LockIconWrapper = styled.View`
   border-radius: 14px;
   border-width: 1px;
   border-style: dashed;
-  border-color: rgba(0, 0, 0, 0.3);
+  border-color: ${({ theme }) => `${theme.colors.text.primary}4D`};
 `;
 
 interface Props {

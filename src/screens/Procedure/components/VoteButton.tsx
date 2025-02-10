@@ -1,30 +1,41 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Lock } from '../../../components/Icons';
+import { useTheme } from 'styled-components/native';
 
 const VoteIconButtonWrapper = styled.TouchableOpacity<
   Pick<Props, 'selection' | 'voteSelection' | 'voted'>
 >`
   width: 88px;
   height: 88px;
-
-  border-color: rgba(21, 192, 99, 0.8);
+  border-color: ${({ theme, selection }) => {
+    switch (selection) {
+      case 'YES':
+        return `${theme.colors.vote.community.yes}CC`;
+      case 'ABSTINATION':
+        return `${theme.colors.vote.community.abstination}80`;
+      case 'NO':
+        return `${theme.colors.vote.community.no}80`;
+      default:
+        return theme.colors.text.tertiary;
+    }
+  }};
   border-radius: ${88 / 2}px;
   align-items: center;
   justify-content: center;
-  background-color: ${({ selection, voteSelection, voted }) => {
+  background-color: ${({ selection, voteSelection, voted, theme }) => {
     if ((voted || voteSelection) && selection !== voteSelection) {
-      return 'grey';
+      return `${theme.colors.text.primary}E6`;
     }
     switch (selection) {
       case 'YES':
-        return '#15C063';
+        return theme.colors.vote.community.yes;
       case 'ABSTINATION':
-        return '#2C82E4';
+        return theme.colors.vote.community.abstination;
       case 'NO':
-        return '#EC3E31';
+        return theme.colors.vote.community.no;
       default:
-        return 'grey';
+        return theme.colors.text.tertiary;
     }
   }};
 `;
@@ -33,7 +44,7 @@ const LockIconWrapper = styled.View`
   position: absolute;
   top: -3px;
   right: -3px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: ${({ theme }) => `${theme.colors.background.primary}E6`};
   width: 30px;
   height: 30px;
   align-items: center;
@@ -41,7 +52,7 @@ const LockIconWrapper = styled.View`
   border-radius: 14px;
   border-width: 1px;
   border-style: dashed;
-  border-color: rgba(0, 0, 0, 0.3);
+  border-color: ${({ theme }) => `${theme.colors.text.primary}4D`};
 `;
 
 const VoteIconButton = styled.Image.attrs(() => ({
@@ -63,6 +74,7 @@ interface Props {
 }
 
 const VoteButton: React.FC<Props> = ({ voteSelection, onPress, selection, voted, style }) => {
+  const theme = useTheme();
   let styleWrapper;
   let styleButton;
   switch (selection) {
@@ -73,7 +85,7 @@ const VoteButton: React.FC<Props> = ({ voteSelection, onPress, selection, voted,
       break;
     case 'ABSTINATION':
       styleWrapper = {
-        borderColor: 'rgba(44, 130, 228, 0.8)',
+        borderColor: `${theme.colors.vote.community.abstination}CC`,
       };
       styleButton = {
         transform: [{ rotate: '-90deg' }],
@@ -83,7 +95,7 @@ const VoteButton: React.FC<Props> = ({ voteSelection, onPress, selection, voted,
       break;
     case 'NO':
       styleWrapper = {
-        borderColor: 'rgba(236, 62, 49, 0.8)',
+        borderColor: `${theme.colors.vote.community.no}CC`,
       };
       styleButton = {
         transform: [{ rotate: '180deg' }],

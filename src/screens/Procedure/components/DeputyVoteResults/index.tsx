@@ -112,20 +112,20 @@ export const DeputyVoteResultSlider: React.FC<Props> = ({
     const screens =
       (data?.procedure?.voteResults?.deputyVotes || []).length > 0
         ? [
-            ...(data?.procedure?.voteResults?.deputyVotes.map((deputy) => (
-              <DeputyVoteResult key="deputy" {...deputy} />
-            )) ?? []),
-            <DeputyVoteResultPlaceholder
-              key="addNewDeputy"
-              label="weitere Abgeordnete hinzufügen"
-            />,
-          ]
+          ...(data?.procedure?.voteResults?.deputyVotes.map((deputy) => (
+            <DeputyVoteResult key="deputy" {...deputy} />
+          )) ?? []),
+          <DeputyVoteResultPlaceholder
+            key="addNewDeputy"
+            label="weitere Abgeordnete hinzufügen"
+          />,
+        ]
         : [
-            <DeputyVoteResultPlaceholder
-              key="addNewDeputy"
-              label="Abgeordnetenergebnis anzeigen"
-            />,
-          ];
+          <DeputyVoteResultPlaceholder
+            key="addNewDeputy"
+            label="Abgeordnetenergebnis anzeigen"
+          />,
+        ];
 
     const onMomentumScrollEnd: ScrollViewProps["onMomentumScrollEnd"] = ({
       nativeEvent,

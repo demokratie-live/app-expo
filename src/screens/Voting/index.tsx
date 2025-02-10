@@ -52,7 +52,7 @@ const WarnWrapper = styled.View`
   left: 0px;
   right: 0px;
   bottom: 130px;
-  background-color: rgba(0, 0, 0, 0);
+  background-color: ${({ theme }) => `${theme.colors.text.primary}00`};
 `;
 
 const WarnTextWrapper = styled.View`
@@ -63,7 +63,7 @@ const WarnTextWrapper = styled.View`
   padding-bottom: 11px;
   padding-left: 18px;
   padding-right: 18px;
-  background-color: rgb(255, 255, 255);
+  background-color: ${({ theme }) => theme.colors.text.primary};
   opacity: 0.9;
 `;
 
@@ -75,9 +75,9 @@ const WarnText = styled.Text`
 
 const BalloutBoxWrapper = styled.View`
   height: 130px;
-  background-color: rgba(250, 250, 250, 0.9);
+  background-color: ${({ theme }) => `${theme.colors.text.primary}E6`};
   border-top-width: 1px;
-  border-top-color: rgba(68, 148, 211, 0.1);
+  border-top-color: ${({ theme }) => `${theme.colors.text.colored}1A`};
 `;
 
 const Description = styled.Text`
@@ -205,12 +205,12 @@ export const VotingScreen: React.FC<Props> = ({
           {
             label: "Übereinstimmungen",
             value: chartData[key].matches,
-            color: "#f5a623",
+            color: theme.colors.vote.wom.match,
           },
           {
             label: "Differenzen",
             value: chartData[key].diffs,
-            color: "#b1b3b4",
+            color: theme.colors.vote.wom.missmatch,
           },
         ],
       }))

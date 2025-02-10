@@ -11,7 +11,9 @@ interface IPalette {
 declare module "styled-components/native" {
   export interface DefaultTheme {
     name: string;
-    colors: Colors;
+    colors: Colors & {
+      tertiary: string;
+    };
     textStyles: {
       button: {
         primary: FlattenSimpleInterpolation;

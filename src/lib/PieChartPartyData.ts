@@ -1,11 +1,13 @@
 import { Slice } from '../components/PieChart';
 import { PartyVote, VoteResult } from '../__generated__/graphql';
+import { DefaultTheme } from 'styled-components/native';
 
 interface Props {
   votedGovernment?: boolean | null;
   voteResults?: Pick<VoteResult, 'yes' | 'abstination' | 'no'> | null;
   partyVotes?: Pick<PartyVote, 'deviants' | 'party'>[] | null;
   selectedParty: string;
+  theme: DefaultTheme
 }
 
 export const pieChartPartyData = ({
@@ -13,6 +15,7 @@ export const pieChartPartyData = ({
   partyVotes,
   selectedParty,
   voteResults,
+  theme,
 }: Props): Slice[] | undefined => {
   if (votedGovernment && voteResults && partyVotes) {
     const sumVotes =
@@ -22,30 +25,30 @@ export const pieChartPartyData = ({
         const { abstination, no, yes } = party.deviants;
         return [
           {
-            color: '#99C93E',
+            color: theme.colors.vote.government.yes,
             percent: (yes || 0) / sumVotes,
             large: true,
           },
           {
-            color: '#99C93E',
+            color: theme.colors.vote.government.yes,
             percent: (voteResults.yes - yes || 0) / sumVotes,
           },
           {
-            color: '#4CB0D8',
+            color: theme.colors.vote.government.abstination,
             percent: (abstination || 0) / sumVotes,
             large: true,
           },
           {
-            color: '#4CB0D8',
+            color: theme.colors.vote.government.abstination,
             percent: (voteResults.abstination - abstination || 0) / sumVotes,
           },
           {
-            color: '#D43194',
+            color: theme.colors.vote.government.no,
             percent: (no || 0) / sumVotes,
             large: true,
           },
           {
-            color: '#D43194',
+            color: theme.colors.vote.government.no,
             percent: (voteResults.no - no || 0) / sumVotes,
           },
         ];

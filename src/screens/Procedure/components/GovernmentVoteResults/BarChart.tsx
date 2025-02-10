@@ -1,30 +1,36 @@
-import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
-import styled from 'styled-components/native';
+import React, { useState } from "react";
+import { Dimensions } from "react-native";
+import styled from "styled-components/native";
 
-import BarChartComponent, { BarChartData } from './BarChart/Component';
-import ChartLegend, { ChartLegendData } from '../Charts/ChartLegend';
-import { VoteResult } from '../../../../__generated__/graphql';
+import BarChartComponent, { BarChartData } from "./BarChart/Component";
+import ChartLegend, { ChartLegendData } from "../Charts/ChartLegend";
+import { VoteResult } from "../../../../__generated__/graphql";
+import { useTheme } from "styled-components/native";
 
 const Wrapper = styled.View`
   align-items: center;
 `;
 
 interface Props {
-  data: Pick<VoteResult, 'namedVote' | 'partyVotes'>;
+  data: Pick<VoteResult, "namedVote" | "partyVotes">;
   legendData: ChartLegendData[];
 }
 
 const BarChart: React.FC<Props> = ({ data, legendData }) => {
+  const theme = useTheme();
   const [chartWidth, setChartWidth] = useState(
-    Math.min(400, Dimensions.get('window').width, Dimensions.get('window').height),
+    Math.min(
+      400,
+      Dimensions.get("window").width,
+      Dimensions.get("window").height
+    )
   );
 
   const onLayout = () => {
     const newChartWidth = Math.min(
       400,
-      Dimensions.get('window').width,
-      Dimensions.get('window').height,
+      Dimensions.get("window").width,
+      Dimensions.get("window").height
     );
     if (newChartWidth !== chartWidth) {
       setChartWidth(newChartWidth);
@@ -33,39 +39,39 @@ const BarChart: React.FC<Props> = ({ data, legendData }) => {
 
   const getPartyColor = (party: string) => {
     switch (party) {
-      case 'Union':
-        return '#4b4b4b';
-      case 'SPD':
-        return '#ed170d';
-      case 'AfD':
-        return '#18a7d8';
-      case 'FDP':
-        return '#ffd32c';
-      case 'Linke':
-        return '#aa4581';
-      case 'Grüne':
-        return '#34ac14';
+      case "Union":
+        return theme.colors.party.Union.background;
+      case "SPD":
+        return theme.colors.party.SPD.background;
+      case "AfD":
+        return theme.colors.party.AfD.background;
+      case "FDP":
+        return theme.colors.party.FDP.background;
+      case "Linke":
+        return theme.colors.party.Linke.background;
+      case "Grüne":
+        return theme.colors.party.Grüne.background;
       default:
-        return 'grey';
+        return theme.colors.text.tertiary;
     }
   };
 
   const prepareData = () => {
     const chartData: BarChartData[] = [
       {
-        label: 'Zugestimmt',
+        label: "Zugestimmt",
         values: [],
       },
       {
-        label: 'Enthalten',
+        label: "Enthalten",
         values: [],
       },
       {
-        label: 'Ablehnung',
+        label: "Ablehnung",
         values: [],
       },
       {
-        label: 'Abwesend',
+        label: "Abwesend",
         values: [],
       },
     ];

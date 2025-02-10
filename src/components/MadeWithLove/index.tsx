@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { linking } from '../../lib/linking';
 
 const Wrapper = styled.TouchableOpacity`
-  background-color: #efeff4;
+  background-color: ${({ theme }) => theme.colors.background.secondary};
   align-items: center;
   padding-top: 11px;
   height: 50px;

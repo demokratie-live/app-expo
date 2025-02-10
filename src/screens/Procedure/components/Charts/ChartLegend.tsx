@@ -25,7 +25,7 @@ const VoteResultCircleNumber = styled.View`
 `;
 
 const VoteResultNumber = styled.Text`
-  color: #4a4a4a;
+  color: ${({ theme }) => theme.colors.text.primary};
   font-size: 12px;
   padding-top: 1px;
 `;

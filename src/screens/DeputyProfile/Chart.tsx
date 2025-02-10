@@ -16,7 +16,7 @@ const ProcedureCount = styled.View`
 
 const ProcedureCountText = styled.Text`
   font-size: 20px;
-  color: #6d6d72;
+  color: ${({ theme }) => theme.colors.text.tertiary};
   font-weight: 500;
 `;
 

@@ -19,6 +19,7 @@ import { linking } from "../../lib/linking";
 import { Button } from "@democracy-deutschland/ui";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
+import { useTheme } from "styled-components/native";
 
 const phoneNumber =
   Platform.OS === "ios"
@@ -43,7 +44,7 @@ const Wrapper = styled.ScrollView.attrs({
 const Headline = styled.Text`
   padding-horizontal: 18px;
   padding-vertical: 18px;
-  color: grey;
+  color: ${({ theme }) => theme.colors.text.tertiary};
   font-size: 15px;
 `;
 
@@ -114,7 +115,46 @@ const Markdown: React.FC<MarkdownProps> = ({ children, styles = {} }) => {
   );
 };
 
+const ContactSection = () => {
+  const theme = useTheme();
+  return (
+    <>
+      <ContactWrapper>
+        <IconWrapper onPress={linking(phoneNumber)}>
+          <SvgPhone color={theme.colors.text.primary} width={30} height={30} />
+        </IconWrapper>
+        <IconWrapper onPress={linking(email)}>
+          <SvgMail color={theme.colors.text.primary} width={30} height={30} />
+        </IconWrapper>
+        <IconWrapper onPress={linking(website)}>
+          <SvgPlanet color={theme.colors.text.primary} width={30} height={30} />
+        </IconWrapper>
+      </ContactWrapper>
+      <SocialMediaWrapper>
+        <IconWrapper onPress={linking(github)}>
+          <SvgGithub color={theme.colors.text.primary} width={30} height={30} />
+        </IconWrapper>
+        <IconWrapper onPress={linking(twitter)}>
+          <SvgTwitter
+            color={theme.colors.text.primary}
+            width={30}
+            height={30}
+          />
+        </IconWrapper>
+        <IconWrapper onPress={linking(facebook)}>
+          <SvgFacebook
+            color={theme.colors.text.primary}
+            width={30}
+            height={30}
+          />
+        </IconWrapper>
+      </SocialMediaWrapper>
+    </>
+  );
+};
+
 export const FaqScreen: React.FC = () => {
+  const theme = useTheme();
   return (
     <Wrapper>
       <Headline>Hier beantworten wir häufig gestellte Fragen</Headline>
@@ -139,37 +179,28 @@ Bitte gib uns möglichst viele Informationen zu den von Dir gefunden Fehlern ode
 Übermittele uns daher immer einen Screenshot, eine kurze Fehlerbeschreibung sowie Deine Plattform (iOS/Android) und Deine Gerätebezeichnung (z.B. iPhone SE), damit wir Dir schnellstmöglich helfen können. 
 `}</Markdown>
       <Spacer />
-      <ContactWrapper>
-        <IconWrapper onPress={linking(phoneNumber)}>
-          <SvgPhone color="#000" width={30} height={30} />
-        </IconWrapper>
-        <IconWrapper onPress={linking(email)}>
-          <SvgMail color="#000" width={30} height={30} />
-        </IconWrapper>
-        <IconWrapper onPress={linking(website)}>
-          <SvgPlanet color="#000" width={30} height={30} />
-        </IconWrapper>
-      </ContactWrapper>
-      <SocialMediaWrapper>
-        <IconWrapper onPress={linking(github)}>
-          <SvgGithub color="#000" width={30} height={30} />
-        </IconWrapper>
-        <IconWrapper onPress={linking(twitter)}>
-          <SvgTwitter color="#000" width={30} height={30} />
-        </IconWrapper>
-        <IconWrapper onPress={linking(facebook)}>
-          <SvgFacebook color="#000" width={30} height={30} />
-        </IconWrapper>
-      </SocialMediaWrapper>
+      <ContactSection />
       <SocialMediaWrapper>
         <IconWrapper onPress={linking(instagram)}>
-          <SvgInstagram color="#000" width={30} height={30} />
+          <SvgInstagram
+            color={theme.colors.text.primary}
+            width={30}
+            height={30}
+          />
         </IconWrapper>
         <IconWrapper onPress={linking(youtube)}>
-          <SvgYoutube color="#000" width={30} height={30} />
+          <SvgYoutube
+            color={theme.colors.text.primary}
+            width={30}
+            height={30}
+          />
         </IconWrapper>
         <IconWrapper onPress={linking(discord)}>
-          <SvgDiscord color="#000" width={30} height={30} />
+          <SvgDiscord
+            color={theme.colors.text.primary}
+            width={30}
+            height={30}
+          />
         </IconWrapper>
       </SocialMediaWrapper>
       <ReViewTutorial>

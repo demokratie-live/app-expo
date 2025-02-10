@@ -20,6 +20,7 @@ import { pieChartGovernmentData } from "../../lib/PieChartGovernmentData";
 import { communityVoteData } from "../../lib/PieChartCommunityData";
 import { AppLogo } from "../../components/AppLogo";
 import { useLegislaturePeriodStore } from "src/api/state/legislaturePeriod";
+import { useTheme } from "styled-components/native";
 
 const isProcedureGuard = (
   searchItem: string | Procedure
@@ -29,13 +30,13 @@ const isProcedureGuard = (
 
 const ListText = styled.Text`
   font-size: 18px;
-  color: grey;
+  color: ${({ theme }) => theme.colors.text.tertiary};
   padding-left: 8px;
 `;
 
 const Text = styled.Text`
   font-size: 18px;
-  color: grey;
+  color: ${({ theme }) => theme.colors.text.tertiary};
 `;
 
 const ActivityIndicator = styled.ActivityIndicator.attrs(() => ({
@@ -44,7 +45,7 @@ const ActivityIndicator = styled.ActivityIndicator.attrs(() => ({
 
 const LoadingWrapper = styled.View`
   flex: 1;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.colors.background.primary};
   padding-top: 18px;
 `;
 
@@ -54,11 +55,11 @@ const NoResultsWrapper = styled.View`
   align-items: center;
 `;
 
-const NoResultsImage = styled(AppLogo).attrs({
+const NoResultsImage = styled(AppLogo).attrs(({ theme }) => ({
   width: 160,
   height: 160,
-  color: "#D8D8D8",
-})`
+  color: theme.colors.text.tertiary,
+}))`
   margin-top: ${({ theme }) => theme.spaces.default};
 `;
 
@@ -71,6 +72,7 @@ interface SegmentData {
 }
 
 export const Results: React.FC = () => {
+  const theme = useTheme();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { legislaturePeriod } = useLegislaturePeriodStore();
@@ -108,26 +110,26 @@ export const Results: React.FC = () => {
 
   const onItemClick =
     ({ item, section }: { item: string | Procedure; section: string }) =>
-    () => {
-      if (section === "Ergebnisse" && isProcedureGuard(item)) {
-        navigation.navigate("Procedure", {
-          procedureId: item.procedureId,
-          title: item.type || item.procedureId,
-        });
-        // this.props.navigateTo({
-        //   screen: 'democracy.Detail',
-        //   title: 'Abstimmung'.toUpperCase(),
-        //   passProps: { ...item },
-        // });
-      } else if (typeof item === "string") {
-        setTerm(item);
-        // this.props.addToSearchHistory({
-        //   variables: {
-        //     term: item,
-        //   },
-        // });
-      }
-    };
+      () => {
+        if (section === "Ergebnisse" && isProcedureGuard(item)) {
+          navigation.navigate("Procedure", {
+            procedureId: item.procedureId,
+            title: item.type || item.procedureId,
+          });
+          // this.props.navigateTo({
+          //   screen: 'democracy.Detail',
+          //   title: 'Abstimmung'.toUpperCase(),
+          //   passProps: { ...item },
+          // });
+        } else if (typeof item === "string") {
+          setTerm(item);
+          // this.props.addToSearchHistory({
+          //   variables: {
+          //     term: item,
+          //   },
+          // });
+        }
+      };
 
   const handleSearchResults = ({
     searchProceduresAutocomplete: { procedures, autocomplete },
@@ -187,10 +189,13 @@ export const Results: React.FC = () => {
                       item.communityVotes ? item.communityVotes.total || 0 : 0
                     }
                     govermentChart={{
-                      votes: pieChartGovernmentData(item),
+                      votes: pieChartGovernmentData({
+                        ...item,
+                        theme
+                      }),
                       large: true,
                     }}
-                    communityVotes={communityVoteData(item)}
+                    communityVotes={communityVoteData({ ...item, theme })}
                   />
                 )}
                 {title === "Zuletzt gesucht" && typeof item === "string" && (

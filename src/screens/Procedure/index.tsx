@@ -35,7 +35,7 @@ const DetailsContainer = styled.View`
   margin-top: 18px;
   padding-vertical: 11px;
   border-top-width: 1px;
-  border-color: rgba(68, 148, 211, 0.1);
+  border-color: ${({ theme }) => `${theme.colors.primary}1A`};
 `;
 
 type RouteProps = RouteProp<RootStackParamList, "NotificationInstruction">;

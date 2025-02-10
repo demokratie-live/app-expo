@@ -6,7 +6,7 @@ import { useWindowDimensions } from 'react-native';
 import { useRecoilValue } from 'recoil';
 import { localVotesState } from '../../../../api/state/votesLocal';
 import { DeputyMatchBarFragment } from '../../../../__generated__/graphql';
-import { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components/native';
 
 interface PreparedData {
   label: string;
@@ -44,6 +44,7 @@ export const MatchesBar: React.FC<MatchesBarProps> = ({ decisions }) => {
   const preparedData = pieChartData({
     ...chartData,
     matchingProcedures,
+    theme
   });
 
   const barChartData = preparedData.reduce<BarData>((prev, renderer) => {

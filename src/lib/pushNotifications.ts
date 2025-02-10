@@ -1,6 +1,7 @@
 import * as Notifications from "expo-notifications";
 import { Platform } from "react-native";
 import * as Device from "expo-device";
+import { DefaultTheme } from "styled-components/native";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -15,13 +16,13 @@ function handleRegistrationError(errorMessage: string) {
   throw new Error(errorMessage);
 }
 
-export async function registerForPushNotificationsAsync() {
+export async function registerForPushNotificationsAsync({ theme }: { theme: DefaultTheme }) {
   if (Platform.OS === "android") {
     Notifications.setNotificationChannelAsync("default", {
       name: "default",
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
-      lightColor: "#FF231F7C",
+      lightColor: theme.colors.primary,
     });
   }
 

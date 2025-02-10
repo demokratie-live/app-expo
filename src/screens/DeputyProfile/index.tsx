@@ -43,7 +43,7 @@ const Text = styled.Text`
 `;
 
 const TextGrey = styled(Text)`
-  color: #6d6d72;
+  color: ${({ theme }) => theme.colors.text.tertiary};
 `;
 
 const TextLighGrey = styled(Text)`
@@ -103,22 +103,22 @@ export const DeputyProfilScreen: React.FC<Props> = ({ id }) => {
     return [
       {
         label: "Zustimmungen",
-        color: "#99C93E",
+        color: theme.colors.vote.government.yes,
         value: procedureCountByDecision.YES,
       },
       {
         label: "Enthaltungen",
-        color: "#4CB0D8",
+        color: theme.colors.vote.government.abstination,
         value: procedureCountByDecision.ABSTINATION,
       },
       {
         label: "Ablehnungen",
-        color: "#D43194",
+        color: theme.colors.vote.government.no,
         value: procedureCountByDecision.NO,
       },
       {
         label: "Abwesend",
-        color: "#B1B3B4",
+        color: theme.colors.vote.government.notVoted,
         value: procedureCountByDecision.NOTVOTED,
       },
     ];
